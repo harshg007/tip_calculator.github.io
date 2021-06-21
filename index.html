@@ -122,9 +122,6 @@
         // Function to calculate tip per person & total per person
         const tipcalc = () => {
             let amount = document.getElementById('bill').value;
-            if (amount < 1) {
-                alert('Bill amount should be greater than 0.');
-            }
             let percent = document.getElementById('tip_percent').value;
             // display alert when 'Tip %' is greater than 100 or less than 0.
             if (percent < 0 || percent > 100) {
