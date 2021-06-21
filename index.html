@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Tip Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* CSS for main tag */
+        main {
+            height: 100vh;
+            background-image: linear-gradient(to bottom right, #234a91, #912077);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        /* CSS for h1 tag */
+        h1 {
+            background-image: linear-gradient(to bottom right, #3388CC, #33CC88);
+            margin-top: 50px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            text-align: center;
+            border-radius: 10px;
+            padding: 5px;
+        }
+
+        /* CSS for div tag */
+        div {
+            width: auto;
+            height: auto;
+            padding: 50px;
+            box-shadow: 1px 1px 15px 3px #73868b;
+            border-radius: 10px;
+            background-color: white;
+        }
+
+        /* CSS for label tag */
+        label {
+            display: block;
+            margin-top: 15px;
+        }
+
+        /* CSS for input tag */
+        input {
+            appearance: none;
+            border: none;
+            outline: none;
+            background: none;
+            width: 300px;
+            padding: 5px 0px;
+            border-bottom: 3px solid purple;
+        }
+
+        /* CSS for button tag */
+        button {
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            border: none;
+            color: white;
+            background-image: linear-gradient(to bottom right, #234a91, #912077);
+            ;
+            box-shadow: 1px 1px 5px 1px #73868b;
+            margin-top: 20px;
+        }
+
+        /* CSS for Calculate button when mouse is over it. */
+        .button1:hover {
+            background-image: linear-gradient(to bottom right, #3388CC, #33CC88);
+            ;
+            color: black;
+        }
+
+        /* CSS for Reset button when mouse is over it. */
+        .button2:hover {
+            background-image: linear-gradient(to bottom right, #3388CC, #33CC88);
+            ;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <main>
+        <h1>Tip Calculator</h1>
+        <div>
+            <label>Bill($)</label>
+            <!-- Created number type input for bill amount which should be greater than 0. -->
+            <input type="number" min="1" id="bill" placeholder="How much was the bill?" required>
+            <br>
+            <label>Tip %</label>
+            <!-- Created number type input for tip percentage which should be from 1 to 100. -->
+            <input type="number" min="0" max="100" id="tip_percent" placeholder="How much tip % you want to give?" required>
+            <br>
+            <label>Number of people</label>
+            <!-- Created number type input for number of people which should be greater than 0. -->
+            <input type="number" min="1" id="no_of_people" placeholder="How many are sharing the bill?" required>
+            <br>
+            <label>Tip <sub>per person</sub></label>
+            <!-- Created text type input which is disabled as it will show the result after computation. -->
+            <input type="text" id="tip_per_person" placeholder="Tip amount to be paid per person." disabled>
+            <br>
+            <label>Total <sub>per person</sub></label>
+            <!-- Created text type input which is disabled as it will show the result after computation. -->
+            <input type="text" id="total_per_person" placeholder="Total amount to be paid per person." disabled>
+            <br>
+            <!-- Created a button which will call function 'tipcalc()' when it is clicked. -->
+            <button onclick="tipcalc()" class="button1">Calculate</button>
+            <!-- Created a button which will call function 'unsetvar()' when it is clicked. -->
+            <button onclick="unsetvar()" class='button2'>Reset</button>
+        </div>
+    </main>
+    <script>
+        // Function to calculate tip per person & total per person
+        const tipcalc = () => {
+            let amount = document.getElementById('bill').value;
+            let percent = document.getElementById('tip_percent').value;
+            // display alert when 'Tip %' is greater than 100 or less than 0.
+            if (percent < 0 || percent > 100) {
+                alert('Tip % value must be from 0 to 100');
+            }
+            let people = document.getElementById('no_of_people').value;
+            // display alert when 'Number of people' is less than 1.
+            if (people < 1) {
+                alert('Number of people must be greater than or equal to 1');
+            }
+            // calculate tip percentage for each person by dividing tip percentage by 100 and then multiplying it by bill amount which is then divided by number of people.
+            let tip = (amount * (percent / 100)) / people;
+            // calculate total per person by dividing bill amount by number of people which is then added with tip per person.
+            let total = (amount / people) + Number(tip);
+            // tip per person & total per person are fixed upto 2 digits of decimal.
+            tip = '$' + tip.toFixed(2) + ((people > 1) ? ' each' : '');
+            total = '$' + total.toFixed(2);
+            // displaying the tip per person & total per person.
+            document.getElementById('tip_per_person').value = tip;
+            document.getElementById('total_per_person').value = total;
+        }
+        // Function to reset all the fields
+        var unsetvar = () => {
+            clr = ' ';
+            document.getElementById('bill').value = clr;
+            document.getElementById('tip_percent').value = clr;
+            document.getElementById('no_of_people').value = clr;
+            document.getElementById('tip_per_person').value = clr;
+            document.getElementById('total_per_person').value = clr;
+        }
+    </script>
+</body>
+
+</html>
